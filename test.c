@@ -69,13 +69,12 @@ bool test_first(){
     for(int i=0; i<first_cases; ++i){
         p[i] = parse_production_from_string(grammar_string[i]);
     }
-    set first = FIRST('A', p, first_cases);
-/*
+/*    set first = FIRST('A', p, first_cases);
+    print_set(first);*/
     for(int i=0; i<first_cases; ++i){
         const char symbol = p[i]->left;
         set first = FIRST(symbol, p, first_cases);
         printf("FIRST(%c) = ", symbol);
         print_set(first);
     }
-*/
 }

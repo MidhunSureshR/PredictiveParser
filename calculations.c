@@ -25,13 +25,14 @@ bool is_epsilon_present(production* p){
 }
 
 set FIRST(char symbol, production** grammar, ssize_t num_productions){
-    printf("Called FIRST symbol = %c\n", symbol);
+    //printf("Called FIRST symbol = %c\n", symbol);
     set first = create_set(10);
     if(is_terminal(symbol)){
         set_add(first, symbol);
         return first;
     }
     else {
+        // Rule 2
         // Find production of symbol
         production *p = get_production_of_nonterminal(symbol, grammar, num_productions);
         // Is symbol->. present ? then add . to set
@@ -39,39 +40,34 @@ set FIRST(char symbol, production** grammar, ssize_t num_productions){
             set_add(first, '.');
         }
 
-        // Rule two
-        ssize_t num_bodies = p->right->size;
-        for (ssize_t i = 0; i < num_bodies; ++i) {
-            int j = 0;
-            char s;
-            while (true) {
-                s = p->right->body[i].production[j];
-                set _first = FIRST(s, grammar, num_productions);
-                set_union(first, _first);
-                printf("Before removing . : ");
-                print_set(first);
-                if (set_contains(_first, '.') != -1 && !is_set_singleton(_first)) {
-                    printf("\tIn if loop\n");
-                    j++;
-                    set_remove(first, '.');
-                    printf("After removing . : ");
-                    print_set(first);
-                } else break;
-            }
-        }
-
         // Rule 3
-        for (ssize_t i = 0; i < num_bodies; ++i) {
+        for(ssize_t i=0; i<p->right->size; ++i) {
             bool add_epsilon = true;
-            for(ssize_t j=0; j < strlen(p->right->body[i].production); ++j){
-                char s = p->right->body[i].production[j];
-                set _first = FIRST(s, grammar, num_productions);
-                if(!set_contains(_first, '.')) {
+            const production_body sub_production = p->right->body[i];
+            for(int j=0; j<strlen(sub_production.production); ++j){
+                set _first = FIRST(sub_production.production[j], grammar, num_productions);
+                if(set_contains(_first, '.') == -1) {
                     add_epsilon = false;
                     break;
                 }
             }
             if(add_epsilon) set_add(first, '.');
+        }
+
+        // For each  X->Y1 Y2 Y3… Yn
+        for(ssize_t i=0; i<p->right->size; ++i){
+            const production_body sub_production = p->right->body[i];
+            const char first_char = sub_production.production[0];
+            set _first = FIRST(first_char, grammar, num_productions);
+            if(set_contains(_first, '.') != -1 && strlen(sub_production.production) >=2){
+                set_remove(_first, '.'); // Remove epsilon
+                set_union(_first, FIRST(sub_production.production[1], grammar, num_productions));
+                set_union(first, _first);
+            }
+            else{
+                // FIRST(X) = FIRST(Y1)
+                set_union(first, _first);
+            }
         }
     }
     return first;
