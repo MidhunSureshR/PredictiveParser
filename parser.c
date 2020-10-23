@@ -5,6 +5,7 @@
 #include "calculation/table.h"
 #include "set.h"
 #include "calculation/first/first.h"
+#include "p_parser.h"
 
 char** get_grammar_from_user(int num_productions){
     char** grammar = malloc(sizeof(int *) * num_productions);
@@ -32,11 +33,9 @@ void run_tests(){
     for(int i=0; i<5; ++i){
         p[i] = parse_production_from_string(grammar_string[i]);
     }
-    set f = FIRST_string("TA", p, 5);
-    print_set(f);
-    set_dealloc(f);
     table t = create_parsing_table(p, 5);
-    print_table(t);
+    predictive_parse("i+i*i", t, p);
+    //print_table(t);
 }
 
 int main() {
