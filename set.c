@@ -52,6 +52,7 @@ bool is_set_singleton(set s){
 
 void set_remove(set s, char element){
     int pos = set_contains(s, element);
+    if(pos == -1) return;
     for(ssize_t i=pos; i<s->index-1; ++i){
         s->elements[i] = s->elements[i+1];
     }

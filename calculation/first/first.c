@@ -1,20 +1,10 @@
-#include "calculations.h"
+#include "first.h"
 #include <stdbool.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 
-bool is_terminal(char c){
-    return !isupper(c);
-}
 
-production* get_production_of_nonterminal(char non_terminal, production **grammar, ssize_t num_productions){
-    for(ssize_t i=0; i<num_productions; ++i){
-        if(grammar[i]->left == non_terminal) return grammar[i];
-    }
-    return NULL;
-}
 
 bool is_epsilon_present(production* p){
     ssize_t len = p->right->size;
@@ -25,7 +15,6 @@ bool is_epsilon_present(production* p){
 }
 
 set FIRST(char symbol, production** grammar, ssize_t num_productions){
-    //printf("Called FIRST symbol = %c\n", symbol);
     set first = create_set(10);
     if(is_terminal(symbol)){
         set_add(first, symbol);
@@ -72,3 +61,4 @@ set FIRST(char symbol, production** grammar, ssize_t num_productions){
     }
     return first;
 }
+

@@ -3,6 +3,7 @@
 #include <string.h>
 #include "production.h"
 #include "helper.h"
+#include <ctype.h>
 
 void print_production(production *p){
     printf("%c->", p->left);
@@ -53,4 +54,19 @@ production* parse_production_from_string(const char* string){
     production_body_list* b = parse_production_body_from_string(string+3);
     p -> right = b;
     return p;
+}
+
+bool is_terminal(char c){
+    return !isupper(c);
+}
+
+bool is_nonterminal(char c){
+    return isupper(c);
+}
+
+production* get_production_of_nonterminal(char non_terminal, production **grammar, ssize_t num_productions){
+    for(ssize_t i=0; i<num_productions; ++i){
+        if(grammar[i]->left == non_terminal) return grammar[i];
+    }
+    return NULL;
 }

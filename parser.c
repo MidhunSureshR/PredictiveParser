@@ -41,8 +41,10 @@ int main() {
 */
     //run_tests();
    //test_set_union();
-   test_set_remove();
-   test_set_add();
-   test_first();
+   //test_set_remove();
+   //test_set_add();
+   test_set_union();
+    //   test_first();
+    test_follow();
     return 0;
 }

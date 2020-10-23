@@ -8,5 +8,6 @@ bool test_input_parsing();
 bool test_set_union();
 bool test_set_remove();
 bool test_set_add();
+bool test_follow();
 
 #endif

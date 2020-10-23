@@ -2,7 +2,9 @@
 #include <stdio.h>
 #include "test.h"
 #include "set.h"
-#include "calculations.h"
+#include "calculation/first/first.h"
+#include "calculation/follow/follow.h"
+
 #define num_cases 3
 #define first_cases 5
 
@@ -36,6 +38,13 @@ bool test_set_union(){
     set_add(b, 'D');
     set_union(a, b);
     print_set(a);
+    // Test 2
+    set c = create_set(5);
+    set d = create_set(5);
+    set_add(c, '$');
+    set_add(d, ')');
+    set_union(c, d);
+    print_set(c);
 };
 
 bool test_input_parsing(){
@@ -77,4 +86,29 @@ bool test_first(){
         printf("FIRST(%c) = ", symbol);
         print_set(first);
     }
+    return true;
+}
+
+bool test_follow(){
+    /*
+    E  -> TA
+    A -> +TA|Є
+    T  -> FB
+    B -> *FB | Є
+    F  -> (E)| id
+     */
+    char grammar_string[first_cases][50] = {"E->TA", "A->+TA|.", "T->FB", "B->*FB|.", "F->(E)|i"};
+    production** p = malloc(sizeof(production) * first_cases);
+    for(int i=0; i<first_cases; ++i){
+        p[i] = parse_production_from_string(grammar_string[i]);
+    }
+    for(int i=0; i<first_cases; ++i){
+        const char symbol = p[i]->left;
+        set follow = FOLLOW(symbol, p, first_cases);
+        printf("FOLLOW(%c) = ", symbol);
+        print_set(follow);
+    }
+//    set follow = FOLLOW('T', p, first_cases);
+//    print_set(follow);
+    return true;
 }
