@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "test.h"
+#include "calculation/table.h"
 
 char** get_grammar_from_user(int num_productions){
     char** grammar = malloc(sizeof(int *) * num_productions);
@@ -22,9 +23,15 @@ void run_tests(){
     char grammar_string[5][50] = {"E->TA", "A->+TA|.", "T->FB", "B->*FB|.", "F->(E)|i"};
     // char grammar_string[6][50] = {"S->aBDh", "B->cC", "C->bC|.", "D->EF", "E->g|.", "F->f|."};
     //char grammar_string[4][50] = {"S->ACB|Cbb|Ba", "A->da|BC", "B->g|.", "C->h|."};
-    test_first(grammar_string, 5);
-    printf("----------------------------------------\n");
-    test_follow(grammar_string, 5);
+//    test_first(grammar_string, 5);
+//    printf("----------------------------------------\n");
+//    test_follow(grammar_string, 5);
+    production** p = malloc(sizeof(production) * 5);
+    for(int i=0; i<5; ++i){
+        p[i] = parse_production_from_string(grammar_string[i]);
+    }
+    table t = create_parsing_table(p, 5);
+    print_table(t);
 }
 
 int main() {

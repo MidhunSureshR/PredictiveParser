@@ -3,18 +3,26 @@
 #include "first/first.h"
 #include "follow/follow.h"
 #include <string.h>
-
-// Representation of each element in our parsing table
-typedef struct {
-    char non_terminal;
-    char input_symbol;
-    production* p; // points to NULL if this entry is empty
-    int sub_production_index;
-}table_entry;
-
-typedef table_entry* table;
+#include <stdio.h>
 
 int table_size = 0;
+
+
+void print_table(table t){
+    for(int i=0; i<table_size; ++i){
+        if(t[i].p != NULL){
+            printf("TABLE(%c,%c) =", t[i].non_terminal, t[i].input_symbol);
+            const int sub_index = t[i].sub_production_index;
+            printf("%c->%s\n", t[i].p->left, t[i].p->right->body[sub_index].production);
+        }
+    }
+}
+
+void empty(table t){
+    for(int i=0; i<table_size; ++i){
+        t[i].p = NULL;
+    }
+}
 
 table_entry* table_get_entry(table t, char non_terminal, char input_symbol){
     for(int i=0; i<table_size; ++i){
@@ -22,6 +30,7 @@ table_entry* table_get_entry(table t, char non_terminal, char input_symbol){
             return &t[i];
         }
     }
+    return NULL;
 }
 
 void table_add(table t, char non_terminal, char input_symbol, production *p, int sub_production_index){
@@ -37,6 +46,7 @@ set get_terminals(production** grammar, ssize_t num_productions){
     set terminals = create_set(10);
     for(ssize_t i=0; i<num_productions; ++i){
         production  *p = grammar[i];
+        printf("size = %d\n", p->right->size);
         for(ssize_t j=0; j<p->right->size; ++j){
             char *sub_production = p->right->body[j].production;
             for(int k=0; k< strlen(sub_production); ++k){
@@ -54,12 +64,13 @@ int get_number_of_terminals(production** grammar, ssize_t num_productions){
     return num_terminals;
 }
 
-void create_parsing_table(production** grammar, ssize_t num_productions){
+table create_parsing_table(production** grammar, ssize_t num_productions){
     const int num_non_terminals = num_productions;
     const int num_terminals = get_number_of_terminals(grammar, num_productions);
     const int pt_size = num_non_terminals * num_terminals;
     table_size = pt_size;
     table entries = malloc(sizeof(table_entry) * pt_size);
+    empty(entries);
     for(ssize_t i=0; i<num_productions; ++i){
         production *p = grammar[i];
         const int num_sub_productions = p->right->size;
@@ -90,4 +101,5 @@ void create_parsing_table(production** grammar, ssize_t num_productions){
 
         }
     }
+    return entries;
 }
