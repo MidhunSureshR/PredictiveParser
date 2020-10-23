@@ -2,11 +2,8 @@
 #include <stdio.h>
 
 
-struct set_s{
-    ssize_t length; // Length of set
-    char *elements; // Array of elements in set
-    int index; // last index
-};
+
+
 
 // Find union of two sets and store in destination
 void set_union(set destination, set source){
@@ -66,4 +63,13 @@ void print_set(set s){
         printf("%c, ",s->elements[i]);
     }
     printf("%c}\n", s->elements[s->index - 1]);
+}
+
+int get_set_size(set s){
+    return s->index;
+}
+
+void set_dealloc(set s){
+    free(s->elements);
+    free(s);
 }
