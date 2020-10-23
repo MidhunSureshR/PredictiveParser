@@ -65,16 +65,19 @@ set FIRST(char symbol, production** grammar, ssize_t num_productions){
 set FIRST_string(char *string, production** grammar, ssize_t num_productions){
     const int len = strlen(string);
     set first = create_set(20);
+    bool add_epsilon = true;
     for(int i=0; i<len; ++i){
         const char symbol = string[i];
         set _first = FIRST(symbol, grammar, num_productions);
-        bool cond = set_contains(first, '.') == -1;
+        bool cond = set_contains(_first, '.') == -1;
         set_remove(_first, '.');
         set_union(first, _first);
         if(cond){
             // first does not contain epsilon
+            add_epsilon = false;
             break;
         }
     }
+    if(add_epsilon) set_add(first, '.');
     return first;
 }

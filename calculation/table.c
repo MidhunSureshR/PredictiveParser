@@ -9,13 +9,16 @@ int table_size = 0;
 
 
 void print_table(table t){
+    int c = 0;
     for(int i=0; i<table_size; ++i){
         if(t[i].p != NULL){
+            c++;
             printf("TABLE(%c,%c) =", t[i].non_terminal, t[i].input_symbol);
             const int sub_index = t[i].sub_production_index;
             printf("%c->%s\n", t[i].p->left, t[i].p->right->body[sub_index].production);
         }
     }
+    printf("Total table size = %d\n", c);
 }
 
 void empty(table t){
@@ -34,6 +37,7 @@ table_entry* table_get_entry(table t, char non_terminal, char input_symbol){
 }
 
 void table_add(table t, char non_terminal, char input_symbol, production *p, int sub_production_index){
+    if(input_symbol == '.') return; // Do Not Add Epsilon to table
     static int i = 0;
     t[i].non_terminal = non_terminal;
     t[i].input_symbol = input_symbol;
@@ -84,6 +88,7 @@ table create_parsing_table(production** grammar, ssize_t num_productions){
                 const char element = first->elements[j];
                 if(is_terminal(element)){
                     table_add(entries, p->left, element, p, k);
+                    printf("Hoolah Added %c,%c\n", p->left, element);
                 }
             }
 
@@ -95,6 +100,7 @@ table create_parsing_table(production** grammar, ssize_t num_productions){
                     const char element = follow->elements[j];
                     if(is_terminal(element)){
                         table_add(entries, p->left, element, p, k);
+                        printf("Added %c,%c\n", p->left, element);
                     }
                 }
             }
