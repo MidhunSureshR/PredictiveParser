@@ -38,13 +38,6 @@ bool test_set_union(){
     set_add(b, 'D');
     set_union(a, b);
     print_set(a);
-    // Test 2
-    set c = create_set(5);
-    set d = create_set(5);
-    set_add(c, '$');
-    set_add(d, ')');
-    set_union(c, d);
-    print_set(c);
 };
 
 bool test_input_parsing(){
@@ -65,7 +58,7 @@ bool test_input_parsing(){
     return true;
 }
 
-bool test_first(){
+bool test_first(char (*grammar_string)[50], int len){
     /*
     E  -> TA
     A -> +TA|Є
@@ -73,23 +66,21 @@ bool test_first(){
     B -> *FB | Є
     F  -> (E)| id
      */
-    char grammar_string[first_cases][50] = {"E->TA", "A->+TA|.", "T->FB", "B->*FB|.", "F->(E)|i"};
-    production** p = malloc(sizeof(production) * first_cases);
-    for(int i=0; i<first_cases; ++i){
+    //char grammar_string[len][50] = {"E->TA", "A->+TA|.", "T->FB", "B->*FB|.", "F->(E)|i"};
+    production** p = malloc(sizeof(production) * len);
+    for(int i=0; i<len; ++i){
         p[i] = parse_production_from_string(grammar_string[i]);
     }
-/*    set first = FIRST('A', p, first_cases);
-    print_set(first);*/
-    for(int i=0; i<first_cases; ++i){
+    for(int i=0; i<len; ++i){
         const char symbol = p[i]->left;
-        set first = FIRST(symbol, p, first_cases);
+        set first = FIRST(symbol, p, len);
         printf("FIRST(%c) = ", symbol);
         print_set(first);
     }
     return true;
 }
 
-bool test_follow(){
+bool test_follow(char (*grammar_string)[50], int len){
     /*
     E  -> TA
     A -> +TA|Є
@@ -97,18 +88,18 @@ bool test_follow(){
     B -> *FB | Є
     F  -> (E)| id
      */
-    char grammar_string[first_cases][50] = {"E->TA", "A->+TA|.", "T->FB", "B->*FB|.", "F->(E)|i"};
-    production** p = malloc(sizeof(production) * first_cases);
-    for(int i=0; i<first_cases; ++i){
+    //char grammar_string[first_cases][50] = {"E->TA", "A->+TA|.", "T->FB", "B->*FB|.", "F->(E)|i"};
+    production** p = malloc(sizeof(production) * len);
+    for(int i=0; i<len; ++i){
         p[i] = parse_production_from_string(grammar_string[i]);
     }
-    for(int i=0; i<first_cases; ++i){
+    for(int i=0; i<len; ++i){
         const char symbol = p[i]->left;
-        set follow = FOLLOW(symbol, p, first_cases);
+        set follow = FOLLOW(symbol, p, len);
         printf("FOLLOW(%c) = ", symbol);
         print_set(follow);
     }
-//    set follow = FOLLOW('T', p, first_cases);
+//    set follow = FOLLOW('T', p, len);
 //    print_set(follow);
     return true;
 }

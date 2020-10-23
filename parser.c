@@ -19,7 +19,12 @@ int get_productions_count(){
 }
 
 void run_tests(){
-    test_input_parsing();
+    // char grammar_string[5][50] = {"E->TA", "A->+TA|.", "T->FB", "B->*FB|.", "F->(E)|i"};
+    // char grammar_string[6][50] = {"S->aBDh", "B->cC", "C->bC|.", "D->EF", "E->g|.", "F->f|."};
+    char grammar_string[4][50] = {"S->ACB|Cbb|Ba", "A->da|BC", "B->g|.", "C->h|."};
+    test_first(grammar_string, 4);
+    printf("----------------------------------------\n");
+    test_follow(grammar_string, 4);
 }
 
 int main() {
@@ -39,12 +44,6 @@ int main() {
         print_production(p[i]);
     }
 */
-    //run_tests();
-   //test_set_union();
-   //test_set_remove();
-   //test_set_add();
-   test_set_union();
-    //   test_first();
-    test_follow();
+    run_tests();
     return 0;
 }

@@ -33,7 +33,7 @@ set FOLLOW(char symbol, production** grammar, ssize_t num_productions){
                       bool set_contains_epsilon = set_contains(_first, '.') != -1;
                       set_remove(_first, '.');
                       set_union(follow, _first);
-                      if(set_contains_epsilon){
+                      if(set_contains_epsilon /*&& k+1 == strlen_production-1*/){
                           // FIRST(next_char) contains epsilon
                           set _follow = FOLLOW(p->left, grammar, num_productions);
                           set_union(follow, _follow);
