@@ -19,12 +19,12 @@ int get_productions_count(){
 }
 
 void run_tests(){
-    // char grammar_string[5][50] = {"E->TA", "A->+TA|.", "T->FB", "B->*FB|.", "F->(E)|i"};
+    char grammar_string[5][50] = {"E->TA", "A->+TA|.", "T->FB", "B->*FB|.", "F->(E)|i"};
     // char grammar_string[6][50] = {"S->aBDh", "B->cC", "C->bC|.", "D->EF", "E->g|.", "F->f|."};
-    char grammar_string[4][50] = {"S->ACB|Cbb|Ba", "A->da|BC", "B->g|.", "C->h|."};
-    test_first(grammar_string, 4);
+    //char grammar_string[4][50] = {"S->ACB|Cbb|Ba", "A->da|BC", "B->g|.", "C->h|."};
+    test_first(grammar_string, 5);
     printf("----------------------------------------\n");
-    test_follow(grammar_string, 4);
+    test_follow(grammar_string, 5);
 }
 
 int main() {

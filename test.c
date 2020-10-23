@@ -99,7 +99,7 @@ bool test_follow(char (*grammar_string)[50], int len){
         printf("FOLLOW(%c) = ", symbol);
         print_set(follow);
     }
-//    set follow = FOLLOW('T', p, len);
+//    set follow = FOLLOW('C', p, len);
 //    print_set(follow);
     return true;
 }
