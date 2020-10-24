@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include "stack.h"
 
-
 void error(stack s){
     printf("Error in parsing\n");
     dealloc_stack(s);
@@ -51,5 +50,5 @@ void predictive_parse(const char* string, table parsing_table, production** gram
         }
     }
     printf("Parsing is successful!!\n");
-    
+
 }

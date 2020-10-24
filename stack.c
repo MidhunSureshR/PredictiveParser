@@ -1,8 +1,13 @@
 #include "stack.h"
 #include <stdlib.h>
 
+struct s_stack{
+    char elements[100];
+    int top;
+};
+
 stack create_stack() {
-    stack s = malloc(sizeof(_stack));
+    stack s = malloc(sizeof(struct s_stack ));
     s->top = -1;
     return s;
 }

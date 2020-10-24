@@ -1,16 +1,13 @@
 #ifndef PREDICTIVEPARSER_STACK_H
 #define PREDICTIVEPARSER_STACK_H
 
-typedef struct{
-    char elements[100];
-    int top;
-}_stack;
+struct s_stack;
 
-typedef _stack* stack;
+typedef struct s_stack* stack;
 
 stack create_stack();
 
-void push(stack s, const char element);
+void push(stack s, char element);
 
 char pop(stack s);
 
