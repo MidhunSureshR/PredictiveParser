@@ -1,41 +1,9 @@
 #include "p_parser.h"
-
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "stack.h"
 
-typedef struct{
-    char elements[100];
-    int top;
-}_stack;
-
-typedef _stack* stack;
-
-stack create_stack(){
-    stack s = malloc(sizeof(_stack));
-    s->top = -1;
-    return s;
-}
-
-void push(stack s, const char element){
-    if(element == '.') return; // Do Not Push Epsilon
-    s->top++;
-    s->elements[s->top] = element;
-}
-
-char pop(stack s){
-    const char element = s->elements[s->top];
-    s->top--;
-    return element;
-}
-
-char stack_top(stack s){
-    return s->elements[s->top];
-}
-
-void dealloc_stack(stack s){
-    free(s);
-}
 
 void error(stack s){
     printf("Error in parsing\n");
@@ -83,4 +51,5 @@ void predictive_parse(const char* string, table parsing_table, production** gram
         }
     }
     printf("Parsing is successful!!\n");
+    
 }
