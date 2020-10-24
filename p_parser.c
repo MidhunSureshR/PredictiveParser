@@ -33,10 +33,14 @@ char stack_top(stack s){
     return s->elements[s->top];
 }
 
-void error(){
-    printf("Error in parsing\n");
+void dealloc_stack(stack s){
+    free(s);
 }
 
+void error(stack s){
+    printf("Error in parsing\n");
+    dealloc_stack(s);
+}
 
 void predictive_parse(const char* string, table parsing_table, production** grammar){
     const int buffer_length = strlen(string) + 1;
@@ -51,19 +55,20 @@ void predictive_parse(const char* string, table parsing_table, production** gram
     push(s,'$');
     const char starting_symbol = grammar[0]->left;
     push(s, starting_symbol);
-
+    printf("Attempting follow productions:\n");
     while(stack_top(s) != '$'){
+
         const char s_top = stack_top(s);
         if(s_top == *current_symbol){
             pop(s);
             current_symbol++;
         }
         else if(is_terminal(s_top)){
-            error();
+            error(s);
             return;
         }
-        else if(table_get_entry(parsing_table, s_top, *current_symbol)->p == NULL){
-            error();
+        else if(table_get_entry(parsing_table, s_top, *current_symbol) == NULL){
+            error(s);
             return;
         }
         else{
@@ -71,8 +76,8 @@ void predictive_parse(const char* string, table parsing_table, production** gram
             production_body sub_production = t->p->right->body[t->sub_production_index];
             const int strlen_sub_production = strlen(sub_production.production);
             pop(s);
+            printf("\t%c->%s\n",t->p->left, sub_production.production);
             for(int i=strlen_sub_production-1; i>=0; --i){
-                printf("%c->%s\n",t->p->left, sub_production.production);
                 push(s, sub_production.production[i]);
             }
         }

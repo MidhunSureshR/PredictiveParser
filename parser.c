@@ -35,6 +35,7 @@ void run_tests(){
     }
     table t = create_parsing_table(p, 5);
     predictive_parse("i+i*i", t, p);
+    predictive_parse("(i)", t, p);
     //print_table(t);
 }
 
