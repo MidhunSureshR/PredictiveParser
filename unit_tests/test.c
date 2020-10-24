@@ -1,9 +1,9 @@
 #include <string.h>
 #include <stdio.h>
 #include "test.h"
-#include "set.h"
-#include "calculation/first/first.h"
-#include "calculation/follow/follow.h"
+#include "../datastructure/set.h"
+#include "../calculation/first/first.h"
+#include "../calculation/follow/follow.h"
 
 #define num_cases 3
 #define first_cases 5

@@ -1,7 +1,7 @@
 #ifndef PREDICTIVEPARSER_TEST_H
 #define PREDICTIVEPARSER_TEST_H
 #include <stdbool.h>
-#include "production.h"
+#include "../datastructure/production.h"
 
 bool test_first(char (*grammar_string)[50], int len);
 bool test_input_parsing();

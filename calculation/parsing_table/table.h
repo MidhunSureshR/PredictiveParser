@@ -1,7 +1,7 @@
 #ifndef PREDICTIVEPARSER_TABLE_H
 #define PREDICTIVEPARSER_TABLE_H
 
-#include "../production.h"
+#include "../../datastructure/production.h"
 
 // Representation of each element in our parsing table
 typedef struct {

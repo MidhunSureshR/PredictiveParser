@@ -1,11 +1,11 @@
-#include "production.h"
+#include "datastructure/production.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "test.h"
-#include "calculation/table.h"
-#include "set.h"
+#include "unit_tests/test.h"
+#include "calculation/parsing_table/table.h"
+#include "datastructure/set.h"
 #include "calculation/first/first.h"
-#include "p_parser.h"
+#include "predictive_parser/p_parser.h"
 
 char** get_grammar_from_user(int num_productions){
     char** grammar = malloc(sizeof(int *) * num_productions);

@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "stack.h"
+#include "../datastructure/stack.h"
 
 void error(stack s){
     printf("Error in parsing\n");

@@ -1,7 +1,7 @@
 #include "table.h"
-#include "../set.h"
-#include "first/first.h"
-#include "follow/follow.h"
+#include "../../datastructure/set.h"
+#include "../first/first.h"
+#include "../follow/follow.h"
 #include <string.h>
 #include <stdio.h>
 

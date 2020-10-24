@@ -3,4 +3,4 @@ project(PredictiveParser C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(PredictiveParser parser.c production.c production.h string_helper.c string_helper.h test.c test.h calculation/first/first.c calculation/first/first.h set.c set.h calculation/follow/follow.c calculation/follow/follow.h calculation/table.c calculation/table.h p_parser.c p_parser.h stack.c stack.h)
+add_executable(PredictiveParser parser.c datastructure/production.c datastructure/production.h helpers/string_helper.c helpers/string_helper.h unit_tests/test.c unit_tests/test.h calculation/first/first.c calculation/first/first.h datastructure/set.c datastructure/set.h calculation/follow/follow.c calculation/follow/follow.h calculation/parsing_table/table.c calculation/parsing_table/table.h predictive_parser/p_parser.c predictive_parser/p_parser.h datastructure/stack.c datastructure/stack.h)

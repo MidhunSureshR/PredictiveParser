@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "production.h"
-#include "string_helper.h"
+#include "../helpers/string_helper.h"
 #include <ctype.h>
 
 void print_production(production *p){
