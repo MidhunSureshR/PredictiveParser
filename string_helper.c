@@ -1,4 +1,4 @@
-#include "helper.h"
+#include "string_helper.h"
 #include <string.h>
 
 void copy_string(char* destination,const char* source){
