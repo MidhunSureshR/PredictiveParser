@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include "unit_tests/test.h"
 #include "calculation/parsing_table/table.h"
-#include "datastructure/set.h"
-#include "calculation/first/first.h"
 #include "predictive_parser/p_parser.h"
 
 char** get_grammar_from_user(int num_productions){

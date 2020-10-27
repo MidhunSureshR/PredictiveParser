@@ -1,10 +1,7 @@
 #include "first.h"
 #include <stdbool.h>
-#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
-
-
 
 bool is_epsilon_present(production* p){
     ssize_t len = p->right->size;

@@ -1,7 +1,6 @@
 #include "follow.h"
 #include "../first/first.h"
 #include <string.h>
-#include <stdio.h>
 
 set FOLLOW(char symbol, production** grammar, ssize_t num_productions){
     // FOLLOW is defined only for non-terminals
