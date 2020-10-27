@@ -24,5 +24,6 @@ production* parse_production_from_string(const char*);
 production* get_production_of_nonterminal(char non_terminal, production **grammar, ssize_t num_productions);
 bool is_terminal(char c);
 bool is_nonterminal(char c);
+production** get_production_from_string_collection(char **grammar, int num_productions);
 
 #endif

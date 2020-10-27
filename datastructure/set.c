@@ -1,10 +1,6 @@
 #include "set.h"
 #include <stdio.h>
 
-
-
-
-
 // Find union of two sets and store in destination
 void set_union(set destination, set source){
     for(ssize_t i=0; i<source->index; ++i){

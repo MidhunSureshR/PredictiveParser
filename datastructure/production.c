@@ -70,3 +70,13 @@ production* get_production_of_nonterminal(char non_terminal, production **gramma
     }
     return NULL;
 }
+
+production **get_production_from_string_collection(char **grammar, int num_productions) {
+    // Create array of pointers to production
+    production** p = malloc(sizeof(production) * num_productions);
+    // Parse each production
+    for(int i=0; i<num_productions; ++i){
+        p[i] = parse_production_from_string(grammar[i]);
+    }
+    return p;
+}

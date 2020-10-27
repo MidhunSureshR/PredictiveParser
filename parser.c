@@ -41,21 +41,23 @@ void run_tests(){
 
 int main() {
     printf("Predictive Parser\n");
-/*
     printf("Enter number of productions:");
     const int num_productions = get_productions_count();
     char **grammar = get_grammar_from_user(num_productions);
-
-    // Create array of pointers to production
-    production** p = malloc(sizeof(production) * num_productions);
-    // Parse each production
-    for(int i=0; i<num_productions; ++i){
-        p[i] = parse_production_from_string(grammar[i]);
-    }
-    for(int i=0; i<num_productions; ++i){
+    production** p = get_production_from_string_collection(grammar, num_productions);
+  /*  for(int i=0; i<num_productions; ++i){
         print_production(p[i]);
+    }*/
+    //run_tests();
+    table t = create_parsing_table(p, 5);
+    while(true){
+        printf("Enter string:");
+        char str[100];
+        scanf("%s", str);
+        predictive_parse(str, t, p);
+        char c;
+        scanf("%c", &c);
+        if(c == 'n') break;
     }
-*/
-    run_tests();
     return 0;
 }

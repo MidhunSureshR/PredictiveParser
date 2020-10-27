@@ -50,7 +50,6 @@ set get_terminals(production** grammar, ssize_t num_productions){
     set terminals = create_set(10);
     for(ssize_t i=0; i<num_productions; ++i){
         production  *p = grammar[i];
-        printf("size = %d\n", p->right->size);
         for(ssize_t j=0; j<p->right->size; ++j){
             char *sub_production = p->right->body[j].production;
             for(int k=0; k< strlen(sub_production); ++k){
@@ -88,7 +87,6 @@ table create_parsing_table(production** grammar, ssize_t num_productions){
                 const char element = first->elements[j];
                 if(is_terminal(element)){
                     table_add(entries, p->left, element, p, k);
-                    printf("Hoolah Added %c,%c\n", p->left, element);
                 }
             }
 
@@ -100,7 +98,6 @@ table create_parsing_table(production** grammar, ssize_t num_productions){
                     const char element = follow->elements[j];
                     if(is_terminal(element)){
                         table_add(entries, p->left, element, p, k);
-                        printf("Added %c,%c\n", p->left, element);
                     }
                 }
             }
